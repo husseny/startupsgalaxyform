@@ -111,7 +111,7 @@ app.controller('formCtrl', ['$scope', '$http', '$window', '$timeout', 'Scopes', 
 			console.log($object);
 			
 			//send data to server
-			$http.post(site_url+'submit_item/', $object).success(function(data){
+			$http.post(site_url+'submit_item/', {email:$scope.email}).success(function(data){
 
 			}).error(function(data){
 				console.log("ERROR");
