@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static "form/css/bootstrap.min.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "form/css/mobile_form.css" %}">
+
+	<!-- Library code. -->
+	<script type="text/javascript" src="{% static "form/js/jquery-2.0.2.js" %}"></script>
+	<script type="text/javascript" src="{% static "form/js/angular.js" %}"></script>
+	<script type="text/javascript" src="{% static "form/js/formapp.js" %}"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.min.js"></script> -->
+	<script type="text/javascript" src="{% static "form/js/angular-animate.js" %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
+	<script type="text/javascript" src="{% static "form/js/ui-bootstrap-tpls-1.3.3.min.js" %}"></script>
+	<script type="text/javascript">
+		var site_url = "{{ host_name }}";
+	</script>
+
+	<title>Startup Galaxy</title>
+</head>
+<body ng-app="formApp" ng-controller="formCtrl">
+	<div class="container-fluid">
+		<div class="row logo-cont">
+			<!-- <div class="col-xs-offset-2 col-xs-8"> -->
+				<img class="logo" src="{% static "form/logo.png" %}">
+			<!-- </div> -->
+		</div>
+		<div class="row form-box">
+			<div class="col-xs-offset-2 col-xs-8">
+				<div ng-hide="!isCurrentSlideIndex(0)" class="row intro-panel slide slide-animation">
+					<span class="row">Hey, we are collecting a bunch of awesome startups to showcase online! We are aiming to publicise startups, making them popular and reachable by more people. Startups Galaxy lists aspiring startups in Egypt. So, If you are one, please fill this form!<br>Press Start to begin.</span>
+					<br>
+					<button class="row btn btn-info col-xs-offset-4 col-xs-4" ng-click="nextSlide()">Start</button>
+				</div>
+				<div ng-hide="!isCurrentSlideIndex(1)" class="row form-panel slide slide-animation">
+					<div class="row form-element">
+						<div class="col-md-offset-2 col-md-2">
+							<span class="input-header">Your email: </span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-offset-1 col-xs-11 input-style">
+							<form name="email_form">
+								<input type="email" name="email" ng-model="email" placeholder="" class="input-text">
+							</form>
+						</div>
+					</div>
+					<div class="row col-xs-offset-1 col-xs-11 next-button">
+						<button class="btn btn-info col-xs-4" ng-click="previousSlide()">Back</button>
+						<button class="btn btn-info col-xs-offset-4 col-xs-4" 
+							ng-disabled="!email || !email_form.email.$valid" ng-click="submit_item([])">Next</button>
+					</div>
+				</div>
+				<div ng-hide="!isCurrentSlideIndex(2)" class="row form-panel slide slide-animation">
+					<div class="row form-element category-panel">
+						<div class="col-xs-offset-1 col-xs-11">
+							<span class="input-header">Choose the category of your business: </span>
+						</div>
+						<div class="col-xs-offset-1 col-xs-11 drop-down-categories">
+							<select class="" ng-model="category" ng-options="category for category in categories" 
+								ng-change="submit_item(['category'])">
+								</select>
+						</div>
+					</div>
+					<div class="row col-xs-offset-1 col-xs-11 next-button" ng-show="category  && !slider_dir">
+						<button class="btn btn-info col-xs-4" ng-click="previousSlide()">Back</button>
+						<button class="btn btn-info col-xs-offset-4 col-md-4" ng-click="nextSlide()">Next</button>
+					</div>
+				</div>
+				<div ng-hide="!isCurrentSlideIndex(3)" class="row form-panel slide slide-animation">
+					<div class="row form-element category-panel">
+						<div class="col-xs-offset-1 col-xs-11">
+							<span class="input-header">Choose your country: </span>
+						</div>
+						<div class="col-xs-offset-1 col-xs-10 drop-down-categories">
+							<select class="" ng-model="country" ng-change="submit_item(['country'])">
+								<option ng-repeat="country_obj in countries" value="{[{country_obj.name}]}">{[{country_obj.name}]}</option>
+							</select>
+						</div>
+					</div>
+					<div class="row col-xs-offset-1 col-xs-11 next-button" ng-show="country && !slider_dir">
+						<button class="btn btn-info col-xs-4" ng-click="previousSlide()">Back</button>
+						<button class="btn btn-info col-xs-offset-4 col-md-4" ng-click="nextSlide()">Next</button>
+					</div>
+				</div>
+				<div ng-hide="!isCurrentSlideIndex(4)" class="row form-panel slide slide-animation">
+					<div class="row form-element">
+						<div class="col-xs-offset-1 col-xs-11">
+							<span class="input-header">Your awesome startup's name: </span>
+						</div>
+					</div>
+					<div class="row">
+						<div class=" col-xs-offset-1 col-xs-11 input-style">
+							<input type="text" ng-model="startup_name" placeholder="" class="input-text">
+						</div>
+					</div>
+					<div class="row col-xs-offset-1 col-xs-11 next-button">
+						<button class="btn btn-info col-xs-4" ng-click="previousSlide()">Back</button>
+						<button class="btn btn-info col-xs-offset-4 col-md-4" ng-disabled="!startup_name" 
+							ng-click="submit_item(['startup_name'])">Next</button>
+					</div>
+				</div>
+				<div ng-hide="!isCurrentSlideIndex(5)" class="row form-panel slide slide-animation">
+					<div class="row form-element">
+						<div class="col-xs-offset-1 col-xs-11">
+							<span class="input-header">Tell us more about {{startup_name}}! </span>
+						</div>
+					</div>
+					<div class="row">
+						<div class=" col-xs-offset-1 col-xs-11 descrip-style">
+							<textarea type="text" ng-model="startup_description" rows="4" cols="30" 
+								placeholder="Shortly describe your startup" class="descrip-text"></textarea>
+						</div>
+					</div>
+					<div class="row col-xs-offset-1 col-xs-11 next-button">
+						<button class="btn btn-info col-xs-4" ng-click="previousSlide()">Back</button>
+						<button class="btn btn-info col-xs-offset-4 col-md-4" ng-disabled="!startup_description" 
+							ng-click="submit_item(['startup_description'])">Next</button>
+					</div>
+				</div>
+				<!-- <div ng-hide="!isCurrentSlideIndex(5)" class="row form-panel slide slide-animation">
+					<div class="row form-element">
+						<div class="col-md-offset-1 col-md-10">
+							<span class="input-header">Can you tell us more details ?</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class=" col-md-offset-2 col-md-8 descrip-style">
+							<textarea type="text" ng-model="startup_long_description" rows="6" cols="30" 
+								placeholder="Tell us about your products, your vision and the details that make up your company culture" class="descrip-text"></textarea>
+						</div>
+					</div>
+					<div class="row col-xs-offset-1 col-xs-11 next-button">
+						<button class="btn btn-info col-md-offset-10 col-md-2" ng-click="nextSlide()">Next</button>
+					</div>
+				</div> -->
+				<div ng-hide="!isCurrentSlideIndex(6)" class="row form-panel slide slide-animation">
+					<div class="row form-element">
+						<div class="col-xs-offset-1 col-xs-11">
+							<span class="input-header">Link us to your brand!</span>
+						</div>
+					</div>
+					<div class="row form-element">
+						<div class="col-md-4">
+							<span class="input-header">Website: </span>
+						</div>
+						<div class="col-md-8 link-style">
+							<input type="text" ng-model="startup_website" placeholder="" class="link-text">
+						</div>
+					</div>
+					<div class="row form-element">
+						<div class="col-md-4">
+							<span class="input-header">Facebook: </span>
+						</div>
+						<div class="col-md-8 link-style">
+							<input type="text" ng-model="startup_fb" placeholder="" class="link-text">
+						</div>
+					</div>
+					<div class="row form-element">
+						<div class="col-md-4">
+							<span class="input-header">Twitter: </span>
+						</div>
+						<div class="col-md-8 link-style">
+							<input type="text" ng-model="startup_tw" placeholder="" class="link-text">
+						</div>
+					</div>
+					<div class="row form-element">
+						<div class="col-md-4">
+							<span class="input-header">Video: </span>
+						</div>
+						<div class="col-md-8 link-style">
+							<input type="text" ng-model="startup_youtube" placeholder="" class="link-text">
+						</div>
+					</div>
+					<div class="row form-element">
+						<div class="col-md-4">
+							<span class="input-header">Logo: </span>
+						</div>
+						<div class="col-md-8 link-style">
+							<input type="text" ng-model="startup_logo" placeholder="" class="link-text">
+						</div>
+					</div>
+					<div class="row col-xs-offset-1 col-xs-11 next-button">
+						<button class="btn btn-info col-xs-4" ng-click="previousSlide()">Back</button>
+						<button class="btn btn-info col-xs-offset-4 col-xs-4"
+						 ng-disabled="!startup_website || !startup_fb || !startup_logo" ng-click="submit_item(['startup_website','startup_fb','startup_tw','startup_youtube','startup_logo'])">Next</button>
+					</div>
+				</div>
+				<div ng-hide="!isCurrentSlideIndex(7)" class="row form-panel slide slide-animation">
+					<div class="row form-element">
+						<div class="col-md-offset-1 col-md-10">
+							<span class="input-header">Get your startup verified! <br>- Provided info will not be public</span>
+						</div>
+					</div>
+					<div class="row form-element">
+						<div class="col-md-4">
+							<span class="input-header">Name: </span>
+						</div>
+						<div class="col-md-8 link-style">
+							<input type="text" ng-model="contact_name" placeholder="" class="link-text">
+						</div>
+					</div>
+					<div class="row form-element">
+						<div class="col-md-4">
+							<span class="input-header">Title: </span>
+						</div>
+						<div class="col-md-8 link-style">
+							<input type="text" ng-model="contact_title" placeholder="" class="link-text">
+						</div>
+					</div>
+					<div class="row form-element">
+						<div class="col-md-4">
+							<span class="input-header">Phone: </span>
+						</div>
+						<div class="col-md-8 link-style">
+							<input type="tel" ng-model="contact_number" placeholder="" class="link-text">
+						</div>
+					</div>
+					<div class="row col-xs-offset-1 col-xs-11 next-button">
+						<button class="btn btn-info col-xs-4" ng-click="previousSlide()">Back</button>
+						<button class="btn btn-info col-xs-offset-4 col-xs-4" 
+						  ng-disabled="!contact_title || !contact_title || !contact_number" 
+						  ng-click="submit_item(['contact_name','contact_title','contact_number'])">Done</button>
+					</div>
+				</div>
+				<div ng-hide="!isCurrentSlideIndex(8)" class="row closing-panel slide slide-animation" ng-click="nextSlide()">
+					<span class="row col-xs-offset-1 col-xs-12">We verify each startup on its own manually before posting about it. It must be an existing startup able to handle aquiring new customers.<br>Verification can take up to five days.
+					<br> The project will be live in December and aims to showcase the best startups in the MENA region.
+					<br>For questions or to say hi, send to hello@startupsgalaxy.com
+					</span>
+					<br>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="contact-us col-xs-offset-1 col-xs-11 next-button col-md-offset-8 col-md-4">
+			<span>For questions or to say hi, send to hello@startupsgalaxy.com</span>
+		</div> -->
+	</div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+@font-face {
+    font-family: galaxy;
+    src: url('/Users/Abdullrahman/Desktop/Startup Galaxy/form/PEOGalaxy.ttf');
+}
+
+body{
+	margin: auto 0;
+	padding: 0;
+	font-family: Futura;
+	color: #33ACFF;
+	/*overflow: hidden;*/
+}
+
+.btn-info{
+	color: #fff;
+	background-color: #020334;
+}
+
+.btn-info:hover{
+	color: #fff;
+	background-color: #020334;
+}
+
+.btn-info:active{
+	color: #fff;
+	background-color: #020334;
+}
+
+.logo-cont {
+	text-align: center;
+}
+
+.logo{
+	width: 60%;
+	margin-top: 10px;
+}
+
+.intro-panel{
+	/*text-align: center;*/
+	width: 100%;
+	font-size: 18px;
+}
+
+.category-panel{
+	text-align: center;
+	/*width: 100%;*/
+}
+
+.form-panel{
+	width: 100%;
+	/*margin-top: 50px;*/
+	height: 400px;
+}
+
+.closing-panel{
+	width: 100%;
+	font-size: 18px;
+}
+
+.form-box{
+	margin-top: 75px;
+}
+
+.drop-down-categories{
+	margin-top: 20px;
+}
+
+.form-element{
+	margin-top: 10px;
+}
+
+.next-button{
+	position: absolute;
+	bottom: 0;
+	/*width: 100%;*/
+}
+
+.slider {
+	font-family: 'Avenir Next';
+	/*width: 20%;
+	height: 110px;*/
+	/*display: block;*/
+	/*position: absolute;*/
+	z-index: 13;
+	top: 100px;
+	font-size: 16;
+	/*overflow: hidden;*/
+    background: #e6e6e6;
+}
+
+.slide {
+    position: absolute;
+    top: 30;
+    left: 0;
+}
+
+.input-header{
+	color: #33ACFF;
+	width: 100%;
+	font-size: 140%;
+}
+
+.input-style, .link-style input {
+	border: none;
+}
+
+.input-style {
+    border-bottom: 1px solid #33ACFF;
+    margin-top: 20px;
+    /*margin: 0 0 0;*/
+    /*width: 100%;*/
+}
+
+.input-text {
+	font-family: Futura;
+	text-align: center;
+	font-size: 140%;
+	font-weight: 200;
+	line-height: 120%;
+	color: #020334;
+	width: 100%;
+	border: none;
+}
+
+.descrip-style{
+	margin-top: 20px;
+}
+
+.descrip-text{
+	font-family: Futura;
+	font-size: 100%;
+	font-weight: 200;
+	line-height: 120%;
+	color: #020334;
+	border:none;
+	/*border-bottom: 1px solid;*/
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.link-style {
+	border-bottom: 1px solid #33ACFF;
+}
+
+.link-text {
+	font-family: Futura;
+	font-size: 140%;
+	font-weight: 200;
+	line-height: 120%;
+	color: #020334;
+	width: 100%;
+}
+
+.contact-us {
+	margin-bottom: 20px;
+}
