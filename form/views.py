@@ -29,6 +29,7 @@ def index(request):
 	else:
 		return render(request, 'form/static.html', {'host_name':host_name})
 
+@csrf_exempt
 def submit_item(request):
 	post_data = json.loads(request.body)
 	try:
