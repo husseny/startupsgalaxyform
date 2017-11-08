@@ -94,7 +94,7 @@ app.controller('formCtrl', ['$scope', '$http', '$window', '$timeout', 'Scopes', 
 
 		$scope.submit_item = function (item_names) {
 			$object = {};
-			$object_list = {};
+			$object_list = [];
 			$object['email'] = $scope.email;
 			angular.forEach(item_names, function(item_name) {
 				item = $scope.$eval(item_name);
