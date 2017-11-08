@@ -93,25 +93,25 @@ app.controller('formCtrl', ['$scope', '$http', '$window', '$timeout', 'Scopes', 
 		};
 
 		$scope.submit_item = function (item_names) {
-			object = {};
-			object_list = {};
-			object['email'] = $scope.email;
+			$object = {};
+			$object_list = {};
+			$object['email'] = $scope.email;
 			angular.forEach(item_names, function(item_name) {
 				item = $scope.$eval(item_name);
 				
-				object[item_name] = item;
-				object_list.push(item_name);
+				$object[item_name] = item;
+				$object_list.push(item_name);
 			});
 			
 			$scope.nextSlide();
 
 			
 			
-			object['items_list'] = object_list;
-			console.log(object);
+			$object['items_list'] = $object_list;
+			console.log($object);
 			
 			//send data to server
-			$http.post(site_url+'submit_item/', object).success(function(data){
+			$http.post(site_url+'submit_item/', $object).success(function(data){
 
 			}).error(function(data){
 				console.log("ERROR");
