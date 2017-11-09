@@ -60,14 +60,14 @@
 							<span class="input-header">Choose the category of your business: </span>
 						</div>
 						<div class="col-xs-offset-1 col-xs-11 drop-down-categories">
-							<select class="" ng-model="category" ng-options="category for category in categories" 
-								ng-change="submit_item(['category'])">
+							<select class="" ng-model="category" ng-options="category for category in categories">
 								</select>
 						</div>
 					</div>
-					<div class="row col-xs-offset-1 col-xs-11 next-button" ng-show="category  && !slider_dir">
+					<div class="row col-xs-offset-1 col-xs-11 next-button">
 						<button class="btn btn-info col-xs-4" ng-click="previousSlide()">Back</button>
-						<button class="btn btn-info col-xs-offset-4 col-xs-4" ng-click="nextSlide()">Next</button>
+						<button class="btn btn-info col-xs-offset-4 col-xs-4" 
+							ng-disabled="!category" ng-click="submit_item(['category'])">Next</button>
 					</div>
 				</div>
 				<div ng-hide="!isCurrentSlideIndex(3)" class="row form-panel slide slide-animation">
@@ -76,14 +76,15 @@
 							<span class="input-header">Choose your country: </span>
 						</div>
 						<div class="col-xs-offset-1 col-xs-10 drop-down-categories">
-							<select class="" ng-model="country" ng-change="submit_item(['country'])">
+							<select class="" ng-model="country">
 								<option ng-repeat="country_obj in countries" value="{[{country_obj.name}]}">{[{country_obj.name}]}</option>
 							</select>
 						</div>
 					</div>
-					<div class="row col-xs-offset-1 col-xs-11 next-button" ng-show="country && !slider_dir">
+					<div class="row col-xs-offset-1 col-xs-11 next-button">
 						<button class="btn btn-info col-xs-4" ng-click="previousSlide()">Back</button>
-						<button class="btn btn-info col-xs-offset-4 col-xs-4" ng-click="nextSlide()">Next</button>
+						<button class="btn btn-info col-xs-offset-4 col-xs-4"
+							ng-disabled="!country" ng-click="submit_item(['country'])">Next</button>
 					</div>
 				</div>
 				<div ng-hide="!isCurrentSlideIndex(4)" class="row form-panel slide slide-animation">
